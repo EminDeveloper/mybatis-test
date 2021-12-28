@@ -14,7 +14,7 @@ import java.util.List;
 public interface MyBatisMapper {
 
     @Select("select *\n" +
-            "from REVERSAL_GUI_USER_TABLE\n" +
+            "from OPERATION_GUI_USER_TABLE\n" +
             "where USERNAME = #{username}")
     @Results(value = {
             @Result(property = "username", column = "username"),
@@ -28,16 +28,16 @@ public interface MyBatisMapper {
     UserEntity findUserEntityByUsername(@Param("username") String username);
 
     @Select("select ROLE.ID, ROLE.CREATED, ROLE.UPDATED, ROLE.NAME \n" +
-            "from WP.REVERSAL_GUI_USER_TABLE USERS\n" +
-            "         join REVERSAL_GUI_USER_ROLE_ASSIGNMENT RGUR on USERS.ID = RGUR.USER_ID\n" +
-            "         join REVERSAL_GUI_USER_ROLE ROLE on RGUR.ROLE_ID = ROLE.ID " +
+            "from WP.OPERATION_GUI_USER_TABLE USERS\n" +
+            "         join OPERATION_GUI_USER_ROLE_ASSIGNMENT RGUR on USERS.ID = RGUR.USER_ID\n" +
+            "         join OPERATION_GUI_USER_ROLE ROLE on RGUR.ROLE_ID = ROLE.ID " +
             "where USERNAME= #{username}")
     List<RoleEntity> findUserRolesByUserName(String username);
 
 
     /*
     declare
-    NEW_USER REVERSAL_GUI_USER_TABLE%rowtype;
+    NEW_USER OPERATION_GUI_USER_TABLE%rowtype;
 begin
     NEW_USER := INSERT_NEW_USER('TEST_F_2', 'test_pass2', 'ACTIVE', 'ROLE_USER');
     DBMS_OUTPUT.PUT_LINE(NEW_USER.USERNAME);
@@ -61,14 +61,14 @@ INSERT_NEW_USER(" +
     @Options(statementType = StatementType.CALLABLE)
     void insertUser(UserEntity entity);
 
-    @Select("select * from REVERSAL_GUI_USER_ROLE where NAME=#{name}")
+    @Select("select * from OPERATION_GUI_USER_ROLE where NAME=#{name}")
     RoleEntity findRoleEntityByName(String name);
 
     @Update("call CHANGE_USER_ROLE(#{username, mode=IN, jdbcType=VARCHAR}, #{roleName, mode=IN, jdbcType=VARCHAR});\n")
     void changeUserRole(String username, String roleName);
 
     @Select("select *\n" +
-            "from REVERSAL_GUI_USER_TABLE")
+            "from OPERATION_GUI_USER_TABLE")
     @Results(value = {
             @Result(property = "username", column = "username"),
             @Result(property = "status", column = "status"),

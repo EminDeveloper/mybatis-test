@@ -1,6 +1,5 @@
 package net.albali.mybatistest.model;
 
-
 import lombok.Data;
 
 @Data
